@@ -184,27 +184,7 @@ healthcheck(callback) {
      * Note how the object was instantiated in the constructor().
      * get() takes a callback function.
      */
-     this.connector.get((data, error) => { 
-         if (data) {
-             if (data.body) {
-                 let result = JSON.parse(data.body);
-                 let tickets = []
-                 result.result.forEach((change) => {
-                     let newChange = {
-                         change_ticket_number: change.number,
-                         change_ticket_key: change.sys_id,
-                         active: change.active,
-                         priority: change.priority,
-                         description: change.description,
-                         work_start: change.work_start,
-                         work_end: change.work_end
-                     };
-                     tickets.push(newChange);
-                 })
-                 callback(tickets);
-             }
-         }
-     })
+     this.connector.get(callback)
   }
 
   /**
@@ -223,23 +203,7 @@ healthcheck(callback) {
      * Note how the object was instantiated in the constructor().
      * post() takes a callback function.
      */
-     this.connector.post({}, (data, error) => { 
-         if (data) {
-             if (data.body) {
-                 let ticket = JSON.parse(data.body);
-                 let newTicket = {
-                    change_ticket_number: change.number,
-                    change_ticket_key: change.sys_id,
-                    active: change.active,
-                    priority: change.priority,
-                    description: change.description,
-                    work_start: change.work_start,
-                    work_end: change.work_end
-                 }
-                 callback(newTicket);
-             }
-         }
-     })
+     this.connector.post({}, callback)
   }
 }
 
